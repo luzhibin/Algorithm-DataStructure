@@ -103,4 +103,23 @@ public class PrimeNumber {
         long end = System.currentTimeMillis();
         System.out.println("\n花费时间："+(end-start));  //优化一加优化二：84ms
     }
+
+    @Test
+    public void method5(){
+        //获取当前时间距离1970-01-01 00:00:00的毫秒数
+        long start = System.currentTimeMillis();
+        //遍历100以内的自然数
+        label:for (int i = 2;i<=100000;i++){
+            boolean b = true;
+            //优化二：对本身是质数的自然数是有效的
+            for (int j=2;j<Math.sqrt(i);j++){
+                if (i % j == 0){    //%是求模运算，即2%10=2，10%2=0，10%3=1。
+                    continue label;
+                }
+            }
+            System.out.print(i+" ");
+        }
+        long end = System.currentTimeMillis();
+        System.out.println("\n花费时间："+(end-start));  //优化一加优化二：84ms
+    }
 }

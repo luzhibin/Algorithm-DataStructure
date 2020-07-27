@@ -8,11 +8,28 @@ public class Demo {
     public static void main(String[] args) {
 
         Person person1 = new Person();
-        person1.name = "小明";
-        person1.gender = "男";
-        person1.age = 18;
-        person1.height = 170;
-        person1.personId = "1101111";
-        person1.showInfo();
+        person1.setName("小明");
+        person1.setAge(18);
+    }
+}
+
+class Person{
+    private String name;
+    private int age;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 }
