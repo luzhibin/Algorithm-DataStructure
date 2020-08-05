@@ -1,7 +1,8 @@
-package JxBrowser;
+package JxBrowser1;
 
-import com.teamdev.jxbrowser.chromium.*;
-import com.teamdev.jxbrowser.chromium.dom.DOMDocument;
+import JxBrowser.myFrame;
+import com.teamdev.jxbrowser.chromium.Browser;
+import com.teamdev.jxbrowser.chromium.bb;
 import com.teamdev.jxbrowser.chromium.events.FinishLoadingEvent;
 import com.teamdev.jxbrowser.chromium.events.LoadAdapter;
 import com.teamdev.jxbrowser.chromium.swing.BrowserView;
@@ -16,18 +17,9 @@ import java.math.BigInteger;
 import static java.awt.event.KeyEvent.KEY_RELEASED;
 
 /**
- * This sample demonstrates, how to find text on the loaded web page.
+ * Created by luzhibin on 2020/8/4 14:57
  */
-public class FindTextSample {
-
-    public static String showInputDialog(Component parentComponent,Object message,String title,int messageType){
-        return null;
-    }
-    public static Object showInputDSalog(Component parentComponent,Object message,String title,int messageType,Icon icon,Object[] selectionValue,Object initValue){
-        JOptionPane.showInputDialog(parentComponent,"请输入用户名","输入用户名",1);
-        return message;
-    }
-
+public class FindText1 {
     private static void hackBrowser() {
 
         try {
@@ -48,37 +40,20 @@ public class FindTextSample {
         }
     }
 
-
     public static void main(String[] args) {
         hackBrowser();
         final String url = "http://m.baidu.com/";
         final Browser browser = new Browser();
-        final DOMDocument document = browser.getDocument();
         final BrowserView browserView = new BrowserView(browser);
 
 
         JFrame frame = new JFrame();
-        //close功能
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        //不显示标题栏,最大化,最小化,退出按钮
-        //frame.setUndecorated(true);
         frame.add(browserView, BorderLayout.CENTER);
         frame.setSize(700, 500);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         browser.loadURL(url);
-/*        browser.loadHTML("<!DOCTYPE html>\n" +
-                "<html>\n" +
-                "<body>\n" +
-                "\n" +
-                "<h1>JavaScript Prompt</h1>\n" +
-                "\n" +
-                "<button onclick=\"myFunction()\">试一试</button>\n" +
-                "\n" +
-                "<p id=\"demo\"></p>\n" +
-                "</body>\n" +
-                "</html>");*/
-
 
 
         browser.addLoadListener(new LoadAdapter() {
@@ -86,30 +61,39 @@ public class FindTextSample {
             public void onFinishLoadingFrame(FinishLoadingEvent event) {
 
                 if (event.isMainFrame()) {
-//                    SearchParams request = new SearchParams("7");
-//                    SearchResult result = browser.findText(request);
-                    //TextFinder textFinder = browser.findText();
-                    //DOMElement element = document.findElement(By.id(result.toString()));
-                    //TextFinder textFinder = browser.textFinder();
                     browserView.setKeyEventsHandler(event1 -> {
                         if (event1.isControlDown() && event1.getKeyCode() == KeyEvent.VK_F
                                 && event1.getID() == KEY_RELEASED) {
-                            //showInputDSalog();
-                            browser.findText(new SearchParams("7"), new SearchResultCallback() {
+
+                            createNewGUI();
+/*                            browser.findText(new SearchParams("7"), new SearchResultCallback() {
                                 @Override
                                 public void onResultReceived(SearchResult searchResult) {
                                     System.out.println("getNumberOfMatches()----------总数：:"+searchResult.getNumberOfMatches());
                                     System.out.println("indexOfSelectedMatch()----------:"+searchResult.indexOfSelectedMatch());
                                     System.out.println("indexOfSelectedMatch()----------:"+searchResult.toString());
                                 }
-                            });
+                            });*/
                         }
                         return false;
                     });
-
                 }
             }
         });
     }
-}
 
+    private static void createNewGUI(){
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run()
+            {
+                //创建一个窗口，创建一个窗口
+                MyFrame1 frame = new MyFrame1("SwingDemo!");
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                //设置窗口大小
+                frame.setSize(350, 150);
+                //显示窗口
+                frame.setVisible(true);
+            }
+        });
+    }
+}
